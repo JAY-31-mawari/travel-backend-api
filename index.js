@@ -2,7 +2,6 @@ const express=require('express')
 const port=4000;
 const cors=require("cors")
 const bodyParser=require("body-parser")
-const path=require("path")
 const app=express();
 const products_routes=require("./routes/products")
 
@@ -15,7 +14,8 @@ app.get("/",(req,res)=>{
               "get testing json":"/api/products/testing",
               "get travelsdetails":"/api/products/travelsdatabase",
               "post travelsdetails":"/api/products/insertdata",
-              "post destination name":"/api/products/demo"});
+              "post destination name":"/api/products/demo",
+              "post delete data":"/api/products/deletedata"});
 })
 
 app.use("/api/products",products_routes);   

@@ -79,4 +79,15 @@ const postTravelName = async(req,res) => {
     })
 }   
 
-module.exports = {getAllProductsTesting,getTravelDetails,postTravelData,postTravelName}
+const postDeleteData = async(req,res) => {
+    let id=req.body
+    let query="DELETE FROM travelsdetails WHERE id=(?)";
+    con.query(query,[id],(err)=>{
+        if(err){
+            console.log("ERROR DELETING DATA");
+            return;
+        }
+    })
+}
+
+module.exports = {getAllProductsTesting,getTravelDetails,postTravelData,postTravelName,postDeleteData};
