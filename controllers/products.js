@@ -9,7 +9,6 @@ const con=mysql.createConnection({
     database:"sql12658991"
 })
 
-
 const getAllProductsTesting = async(req,res) => {
     res.status(200).json({msg:"Hey Jay Mawari,i am getAllProductsTesting"})
 }
