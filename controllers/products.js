@@ -3,10 +3,10 @@ let traveldata;
 let destname;
 const mysql=require("mysql")
 const con=mysql.createConnection({
-    host:"sql12.freemysqlhosting.net",
-    user:"sql12657085",
-    password:"eXWJCwQJUW",
-    database:"sql12657085"
+    host:"sql12.freesqldatabase.com",
+    user:"sql12658991",
+    password:"1hdFd6yTM5",
+    database:"sql12658991"
 })
 
 
@@ -15,9 +15,9 @@ const getAllProductsTesting = async(req,res) => {
 }
 
 const getTravelDetails = async(req,res) => {
-    con.query("SELECT * FROM travelsdetails",(err,result)=>{
+    con.query("SELECT * FROM traveldetails",(err,result)=>{
         if(err){
-            console.log("ERROR TRAVELSDETAILS TABLE")
+            console.log("ERROR TRAVELDETAILS TABLE")
             return;
         }
         res.send(result);
@@ -26,9 +26,9 @@ const getTravelDetails = async(req,res) => {
 
 const postTravelData = async(req,res) => {
     traveldata=req.body;
-    const query="INSERT INTO travelsdetails (id,destname,location,desttype,price,description) VALUES (?)";
+    const query="INSERT INTO traveldetails (id,destname,location,desttype,price,description) VALUES (?)";
 
-    con.query("SELECT id FROM travelsdetails WHERE id=(SELECT max(id) FROM travelsdetails)",(err,result)=>{
+    con.query("SELECT id FROM traveldetails WHERE id=(SELECT max(id) FROM travelsdetails)",(err,result)=>{
         if(err)
         {
         console.log("ERROR TRAVEL ID");
@@ -45,7 +45,7 @@ const postTravelData = async(req,res) => {
             con.query(query,[traveldata],(err)=>{
                 if(err)
                 {
-                console.log("ERROR TRAVELSDETAILS TABLE ");
+                console.log("ERROR TRAVELDETAILS TABLE ");
                 return;
                 }
 
@@ -81,7 +81,7 @@ const postTravelName = async(req,res) => {
 
 const postDeleteData = async(req,res) => {
     let id=req.body
-    let query="DELETE FROM travelsdetails WHERE id=(?)";
+    let query="DELETE FROM traveldetails WHERE id=(?)";
     con.query(query,[id],(err)=>{
         if(err){
             console.log("ERROR DELETING DATA");

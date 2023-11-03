@@ -15,7 +15,11 @@ app.get("/",(req,res)=>{
               "get travelsdetails":"/api/products/travelsdatabase",
               "post travelsdetails":"/api/products/insertdata",
               "post destination name":"/api/products/demo",
-              "post delete data":"/api/products/deletedata"});
+              "post delete data":"/api/products/deletedata",
+              "hosted database link":"https://www.phpmyadmin.co/tbl_structure.php?db=sql12658991&table=traveldetails",
+              "password":"1hdFd6yTM5",
+              "server":"sql12.freesqldatabase.com",
+              "username":"sql12658991"});
 })
 
 app.use("/api/products",products_routes);   
