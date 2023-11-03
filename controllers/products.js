@@ -27,7 +27,7 @@ const postTravelData = async(req,res) => {
     traveldata=req.body;
     const query="INSERT INTO traveldetails (id,destname,location,desttype,price,description) VALUES (?)";
 
-    con.query("SELECT id FROM traveldetails WHERE id=(SELECT max(id) FROM travelsdetails)",(err,result)=>{
+    con.query("SELECT id FROM traveldetails WHERE id=(SELECT max(id) FROM traveldetails)",(err,result)=>{
         if(err)
         {
         console.log("ERROR TRAVEL ID");
