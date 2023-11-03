@@ -81,7 +81,7 @@ const postTravelName = async(req,res) => {
 
 const postDeleteData = async(req,res) => {
     let id=req.body
-    let query="DELETE FROM travelsdetails WHERE destname=(?)";
+    let query="DELETE FROM travelsdetails WHERE id=(?)";
     con.query(query,[id],(err)=>{
         if(err){
             console.log("ERROR DELETING DATA");
