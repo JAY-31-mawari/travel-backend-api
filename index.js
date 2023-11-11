@@ -13,13 +13,12 @@ app.get("/",(req,res)=>{
     res.send({"message":"SERVER STARTED AND SUCCESSFULLY CONNECTED WITH DATABASE",
               "get testing json":"/api/products/testing",
               "get travelsdetails":"/api/products/travelsdatabase",
+              "get history data":"/api/products/historydata",
               "post travelsdetails":"/api/products/insertdata",
-              "post destination name":"/api/products/demo",
+              "post login name":"api/products/login",
+              "post payment data":"api/products/payment",
               "post delete data":"/api/products/deletedata",
-              "hosted database link":"https://www.phpmyadmin.co/tbl_structure.php?db=sql12658991&table=traveldetails",
-              "password":"1hdFd6yTM5",
-              "server":"sql12.freesqldatabase.com",
-              "username":"sql12658991"});
+              });
 })
 
 app.use("/api/products",products_routes);   

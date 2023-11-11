@@ -1,92 +1,86 @@
-let travel_id=1;
-let traveldata;
-let destname;
-const mysql=require("mysql")
-const con=mysql.createConnection({
-    host:"sql12.freesqldatabase.com",
-    user:"sql12658991",
-    password:"1hdFd6yTM5",
-    database:"sql12658991"
-})
+const fs=require('fs');
 
 const getAllProductsTesting = async(req,res) => {
     res.status(200).json({msg:"Hey Jay Mawari,i am getAllProductsTesting"})
 }
 
 const getTravelDetails = async(req,res) => {
-    con.query("SELECT * FROM traveldetails",(err,result)=>{
-        if(err){
-            console.log("ERROR TRAVELDETAILS TABLE")
-            return;
+    const data=fs.readFileSync('./travels.json','utf8');
+    const jsondata=JSON.parse(data);
+    res.send(jsondata);
+}
+
+const getHistoryData = async(req,res) => {
+    let paymentdata=fs.readFileSync('./payment.json','utf-8');
+    paymentdata=JSON.parse(paymentdata);
+    let historydata=[];
+    for(let i=0 ; i < paymentdata.length ; i++)
+    {
+        if(paymentdata[i].name === req.body.username)
+        {
+            historydata=[...historydata,paymentdata[i]]
         }
-        res.send(result);
-    })
+    }
+    res.send(historydata);
 }
 
 const postTravelData = async(req,res) => {
-    traveldata=req.body;
-    const query="INSERT INTO traveldetails (id,destname,location,desttype,price,description) VALUES (?)";
+    let jsondata=[]
+    let data=fs.readFileSync('./travels.json','utf-8')
+    jsondata=JSON.parse(data);
+    let jsonlength=jsondata.length
+    req.body={"id":jsondata[jsonlength-1].id+1,...req.body}
+    let newdata=[...jsondata,req.body]
+    newdata=JSON.stringify(newdata)
+    fs.writeFileSync('./travels.json',newdata);
+    res.send({message:"DATA ADDED SUCCESSFULLY"})
+}
 
-    con.query("SELECT id FROM traveldetails WHERE id=(SELECT max(id) FROM traveldetails)",(err,result)=>{
-        if(err)
+
+const postDeleteData = async(req,res) => {
+    let id=Number(req.body)
+    let jsondata=[]
+    let data=fs.readFileSync('./travels.json','utf-8')
+    jsondata=JSON.parse(data)
+    let newdata=jsondata.filter((obj)=> obj.id !== id)
+    newdata=JSON.stringify(newdata);
+    fs.writeFileSync('./travels.json',newdata);
+    res.send({message:"DATA DELETED SUCCESSFULLY"})
+}
+
+const postLoginData = async(req,res) => {
+    let jsondata=[]
+    const data=fs.readFileSync('./login.json','utf-8')
+    jsondata=JSON.parse(data);
+    if(req.body.islogin)
+    {
+        const confirmuser=jsondata.some(user=>user.username === req.body.username);
+        if(confirmuser)
         {
-        console.log("ERROR TRAVEL ID");
-        return;
+            res.send({message:"SUCCESSFULLY LOGGED IN"});
         }
         else
         {
-            if(result.length !== 0)
-            {
-            travel_id=result[0].id + 1
-            }
-            traveldata=[travel_id,...traveldata];
-
-            con.query(query,[traveldata],(err)=>{
-                if(err)
-                {
-                console.log("ERROR TRAVELDETAILS TABLE ");
-                return;
-                }
-
-      })
+            res.send({message:"INVALID USERNAME. FIRST SIGN UP PLEASE"})
+        }
     }
-  })
+    else
+    {
+        let newdata=[...jsondata,req.body];
+        newdata=JSON.stringify(newdata);
+        fs.writeFileSync('./login.json',newdata);
+        res.send({message:"ACCOUNT CREATED SUCCESSFULLY"})
+    }
 }
 
-const postTravelName = async(req,res) => {
-    destname=req.body.destname.toUpperCase();
-    const query="INSERT INTO travel (id,Destinationname) VALUES (?,?)";
-
-    con.query("SELECT id FROM travel where id=(SELECT max(id) FROM travel)",(err,result)=>{
-        if(err){
-            console.log("ERROR ID");
-            return
-        }
-        else{
-            if(result.length !== 0)
-            {
-                travel_id=result[0].id + 1;
-            }
-
-            con.query(query,[travel_id,destname],(err)=>{
-                if(err){
-                    console.log("ERROR TRAVEL TABLE");
-                    return;
-                }
-            })
-        }
-    })
-}   
-
-const postDeleteData = async(req,res) => {
-    let id=req.body
-    let query="DELETE FROM traveldetails WHERE id=(?)";
-    con.query(query,[id],(err)=>{
-        if(err){
-            console.log("ERROR DELETING DATA");
-            return;
-        }
-    })
+const postPaymentData = async(req,res) => {
+    let jsondata=[]
+    let data=fs.readFileSync('./payment.json','utf-8')
+    jsondata=JSON.parse(data);
+    let newdata=[...jsondata,req.body]
+    newdata=JSON.stringify(newdata);
+    fs.writeFileSync('./payment.json',newdata);
+    res.send({message:"PAYMENT SUCCESSFULLY DONE"})
 }
 
-module.exports = {getAllProductsTesting,getTravelDetails,postTravelData,postTravelName,postDeleteData};
+module.exports = {getAllProductsTesting,getTravelDetails,getHistoryData,postTravelData,postDeleteData,postLoginData,postPaymentData};
