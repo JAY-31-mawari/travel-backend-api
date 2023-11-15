@@ -14,9 +14,11 @@ app.get("/",(req,res)=>{
               "get testing json":"/api/products/testing",
               "get travelsdetails":"/api/products/travelsdatabase",
               "get history data":"/api/products/historydata",
+              "get users name":"/api/products/users",
+              "post delete users":"/api/products/deleteuser",
               "post travelsdetails":"/api/products/insertdata",
-              "post login name":"api/products/login",
-              "post payment data":"api/products/payment",
+              "post login name":"/api/products/login",
+              "post payment data":"/api/products/payment",
               "post delete data":"/api/products/deletedata",
               });
 })

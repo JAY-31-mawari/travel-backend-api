@@ -10,6 +10,23 @@ const getTravelDetails = async(req,res) => {
     res.send(jsondata);
 }
 
+const getLoginNames = async(req,res) => {
+    const data=fs.readFileSync("./login.json","utf-8");
+    const jsondata=JSON.parse(data);
+    res.send(jsondata);
+}
+
+const postDeleteUsers = async(req,res) => {
+    let id=Number(req.body)
+    let jsondata=[];
+    let data=fs.readFileSync('./login.json','utf-8');
+    jsondata=JSON.parse(data);
+    let newdata=jsondata.filter((obj) => obj.id !== id);
+    newdata=JSON.stringify(newdata);
+    fs.writeFileSync("./login.json",newdata);
+    res.send({message:"DATA DELETED SUCCESSFULLY"})
+}
+
 const getHistoryData = async(req,res) => {
     let paymentdata=fs.readFileSync('./payment.json','utf-8');
     paymentdata=JSON.parse(paymentdata);
@@ -66,6 +83,8 @@ const postLoginData = async(req,res) => {
     }
     else
     {
+        let jsonlength=jsondata.length;
+        req.body={"id":jsondata[jsonlength-1].id+1,...req.body}
         let newdata=[...jsondata,req.body];
         newdata=JSON.stringify(newdata);
         fs.writeFileSync('./login.json',newdata);
@@ -83,4 +102,4 @@ const postPaymentData = async(req,res) => {
     res.send({message:"PAYMENT SUCCESSFULLY DONE"})
 }
 
-module.exports = {getAllProductsTesting,getTravelDetails,getHistoryData,postTravelData,postDeleteData,postLoginData,postPaymentData};
+module.exports = {getAllProductsTesting,getTravelDetails,getHistoryData,getLoginNames,postDeleteUsers,postTravelData,postDeleteData,postLoginData,postPaymentData};
