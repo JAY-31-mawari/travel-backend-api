@@ -15,6 +15,7 @@ app.get("/",(req,res)=>{
               "get travelsdetails":"/api/products/travelsdatabase",
               "get history data":"/api/products/historydata",
               "get users name":"/api/products/users",
+              "get payment data":"/api/products/paymentdata",
               "post delete users":"/api/products/deleteuser",
               "post travelsdetails":"/api/products/insertdata",
               "post login name":"/api/products/login",

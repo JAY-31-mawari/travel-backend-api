@@ -10,6 +10,12 @@ const getTravelDetails = async(req,res) => {
     res.send(jsondata);
 }
 
+const getPaymentData = async(req,res) => {
+    let data=fs.readFileSync("./payment.json","utf-8");
+    let jsondata=JSON.parse(data);
+    res.send(jsondata);
+}
+
 const getLoginNames = async(req,res) => {
     const data=fs.readFileSync("./login.json","utf-8");
     const jsondata=JSON.parse(data);
@@ -102,4 +108,4 @@ const postPaymentData = async(req,res) => {
     res.send({message:"PAYMENT SUCCESSFULLY DONE"})
 }
 
-module.exports = {getAllProductsTesting,getTravelDetails,getHistoryData,getLoginNames,postDeleteUsers,postTravelData,postDeleteData,postLoginData,postPaymentData};
+module.exports = {getAllProductsTesting,getTravelDetails,getHistoryData,getLoginNames,getPaymentData,postDeleteUsers,postTravelData,postDeleteData,postLoginData,postPaymentData};
