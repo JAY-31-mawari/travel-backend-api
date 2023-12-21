@@ -1,12 +1,12 @@
 const fs=require('fs');
-const data=require('./travels.json')
+const database=fs.readFileSync('./travels.json','utf-8')
 
 const getAllProductsTesting = async(req,res) => {
     res.status(200).json({msg:"Hey Jay Mawari,i am getAllProductsTesting"})
 }
 
 const getTravelDetails = async(req,res) => {
-    const jsondata=JSON.parse(data);
+    const jsondata=JSON.parse(database)
     res.send(jsondata);
 }
 
