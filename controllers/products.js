@@ -1,5 +1,4 @@
 const fs=require('fs');
-const database=fs.readFileSync('./travels.json','utf-8')
 
 const getAllProductsTesting = async(req,res) => {
     res.status(200).json({msg:"Hey Jay Mawari,i am getAllProductsTesting"})
