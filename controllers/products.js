@@ -1,12 +1,14 @@
 const fs=require('fs');
 
+
 const getAllProductsTesting = async(req,res) => {
     res.status(200).json({msg:"Hey Jay Mawari,i am getAllProductsTesting"})
 }
 
 const getTravelDetails = async(req,res) => {
-    const jsondata=JSON.parse(database)
-    res.send(jsondata);
+    let data=fs.readFileSync('./travels.json','utf-8')
+    let jsondata=JSON.parse(data);
+    res.send(jsondata)
 }
 
 const getPaymentData = async(req,res) => {
