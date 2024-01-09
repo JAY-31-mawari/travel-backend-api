@@ -49,12 +49,12 @@ const getHistoryData = async(req,res) => {
 
 const postTravelData = async(req,res) => {
     let jsondata=[]
-    let data=fs.readFileSync('./travels.json','utf-8')
+    const data=fs.readFileSync('./travels.json','utf-8')
     jsondata=JSON.parse(data);
-    let jsonlength=jsondata.length
+    let jsonlength=jsondata.length;
     req.body={"id":jsondata[jsonlength-1].id+1,...req.body}
-    let newdata=[...jsondata,req.body]
-    newdata=JSON.stringify(newdata)
+    let newdata=[...jsondata,req.body];
+    newdata=JSON.stringify(newdata);
     fs.writeFileSync('./travels.json',newdata);
     res.send({message:"DATA ADDED SUCCESSFULLY"})
 }
